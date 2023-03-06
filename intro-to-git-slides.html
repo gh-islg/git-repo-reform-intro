@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>NYPD PUBLIC SAFETY DASHBOARD</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="ISLG" />
+    <meta name="date" content="2023-03-06" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# NYPD PUBLIC SAFETY DASHBOARD
+]
+.subtitle[
+## Data Processing
+]
+.author[
+### ISLG
+]
+.date[
+### 2023-03-06
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.left-column {
+  color: #777;
+  width: 40%;
+  height: 100%;
+  float: center;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 60%;
+  float: right;
+  padding-top: 3em;
+}
+&lt;/style&gt;
+
+# ✨ Today's Game Plan ✨
+
+1. Workflow overview
+
+2. Data collection set up
+   - OpenData
+   - Scraping
+   - Sent from agency
+   
+3. Reading/writing data on Box 
+   - Boxr
+   - Box Sync
+   - Box.com
+     
+4. Data storage folder structure
+ - Agency 
+ - Bucket? 
+ - Metric?
+ 
+5. Next time: Code repository and Code reviews
+
+---
+
+&lt;p align="center"&gt;
+&lt;img src="images/flowchart.png" width="500" height="600"&gt;
+&lt;/p &gt;
+
+---
+
+# Tools &amp; Software
+
+--
+
+- Box / &lt;a href="https://support.box.com/hc/en-us/articles/360043697194-Installing-Box-Sync" target="_blank"&gt;Box Sync&lt;/a&gt;
+
+  + We will use Box to store raw and clean data. &lt;a href="https://islgcunyedu.app.box.com/folder/194970922440" target="_blank"&gt;[here]&lt;/a&gt; No data will be stored in Git repository. 
+
+--
+
+- `Git` / GitHub
+
+  + `NYPD_Reform` will be our team's primary codebase, which we will use to track and review scripts &lt;a href="https://github.com/gh-islg/NYPD_Reform" target="_blank"&gt;[here]&lt;/a&gt;
+  
+  + `reform_dash_scraper` is separate repository used for automated scraping. &lt;a href="https://github.com/gh-islg/reform_dash_scraper" target="_blank"&gt;[here]&lt;/a&gt;
+  
+--
+     
+- `R` / `RStudio`
+
+
+---
+
+# Overview of process
+
+--
+
+- Data collection streams:
+  1. OpenData &lt;span style='color: steelblue;'&gt;(Annie)&lt;/span&gt;
+  2. Scraped via cron job &lt;span style='color: steelblue;'&gt;(Annie)&lt;/span&gt; 
+  3. Agencies drop us data through Box folder  &lt;span style='color: steelblue;'&gt;(Jamel &amp; Melanie)&lt;/span&gt; 
+
+--
+
+- Wrangling &lt;span style='color: steelblue;'&gt;(Jamel, Melanie  &amp; Annie)&lt;/span&gt;
+
+
+--
+
+- QA and Code review &lt;span style='color: steelblue;'&gt;(Jamel, Melanie  &amp; Annie)&lt;/span&gt;
+  
+--
+
+- Pushing to Blenderbox's database can be done either:
+ 1. programmatically or  &lt;span style='color: steelblue;'&gt;(Annie)&lt;/span&gt;
+ 2. with drag/drop UI &lt;span style='color: steelblue;'&gt;(Jamel &amp; Melanie)&lt;/span&gt;
+
+---
+class: inverse, middle, center
+
+#🚗  **An example: vehicle stops**  🚗
+
+
+---
+
+# What is Git and GitHub? Why Git?
+.left-column[
+
+&lt;div style="visibility: hidden; height: 130px;"&gt;
+  CSS+markdown combo not cooperating...so jank sol'n
+&lt;/div&gt;
+&lt;img src = "https://imgs.xkcd.com/comics/git_commit.png" /&gt;
+]
+
+.right-column[
+- a popular Version Control System (VCS)
+ + git creates a "snapshot" of your code and allows you manage your code history
+
+- [GitHub](https://www.github.com/) is the cloud-based service that helps us keep track of Git repositories
+
+- many people can work on chunks of code simultaneously within a project
+
+]
+
+---
+
+# Structure of NYPD_Reform Repository
+
+---
+
+&lt;!-- ### Lab --&gt;
+
+&lt;!-- 1. Create a new file `my_file_&lt;your-name&gt;.txt` (e.g., `my_file_ayc.txt`) in the local repository. Populate the text file with whatever you want.  --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- 2. Type **`git status`** in your terminal. What do you see?  --&gt;
+&lt;!-- -- --&gt;
+
+&lt;!-- 3. Stage `my_file_&lt;your-name&gt;.txt` by executing:  --&gt;
+&lt;!-- ```cli --&gt;
+&lt;!-- $ git add my_file_&lt;your-name&gt;.txt --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- -- --&gt;
+
+&lt;!-- 4. Write an informative comment about the changes you made. --&gt;
+&lt;!-- ```cli --&gt;
+&lt;!-- $ git commit -m "create new script" --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- -- --&gt;
+
+&lt;!-- 5. Send it to the remote repository. (`main` is the name of the master branch.) --&gt;
+&lt;!-- ```cli --&gt;
+&lt;!-- $ git push -u origin main --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Additional resources --&gt;
+
+&lt;!-- - My preferred git [cheatsheet](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet) was created by Atlassian (owners of BitBucket), but there are many others. E.g., from [GitHub](https://training.github.com/downloads/github-git-cheat-sheet.pdf) or this [interactive]((https://ndpsoftware.com/git-cheatsheet.html#loc=index) one. --&gt;
+
+&lt;!-- - All git [commands](https://git-scm.com/docs/git#_git_commands). --&gt;
+
+&lt;!-- - Perhaps my favorite git reference of all is [ohshitgit](https://ohshitgit.com/) (or the child-friendly [dangitgit](https://dangitgit.com/en)). Some of this content is on slides 20 &amp; 21! --&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
