@@ -1,0 +1,344 @@
+---
+title: "Introduction to Git and GitHub"
+subtitle: "Data Operations Team (ISLG)"
+author: "Annie Y. Chen"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+```{r}
+pacman::p_load("emo")
+```
+
+
+
+```{css, echo=FALSE}
+.left-column {
+  color: #777;
+  width: 40%;
+  height: 100%;
+  float: center;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 60%;
+  float: right;
+  padding-top: 3em;
+}
+```
+
+
+# What is Git and GitHub? Why Git?
+.left-column[
+
+<div style="visibility: hidden; height: 130px;">
+  CSS+markdown combo not cooperating...so jank sol'n
+</div>
+<img src = "https://imgs.xkcd.com/comics/git_commit.png" />
+]
+
+.right-column[
+- a popular Version Control System (VCS)
+ + git creates a "snapshot" of your code and allows you manage your code history
+
+- [GitHub](https://www.github.com/) is the cloud-based service that helps us keep track of Git repositories
+
+- many people can work simultaneously on a single project
+]
+
+---
+
+# Getting started with [GitHub](https://www.github.com/)
+
+We will be working with this repository for this workshop. Please download it to your local machine!
+
+You can do so by executing the following in the directory of your choice.
+
+```cli
+$ git clone https://github.com/gh-islg/git_workshop.git
+```
+
+---
+
+# Workflow
+
+<img src = "https://www.stephenmarron.com/wp-content/uploads/2017/02/git.png" />
+
+
+---
+
+# Basic commands
+
+.center[![basics](images/git_workflow_basics.png)]
+
+---
+
+### Lab
+
+1. Create a new file `my_file_<your-name>.txt` (e.g., `my_file_ayc.txt`) in the local repository. Populate the text file with whatever you want. 
+
+--
+
+2. Type **`git status`** in your terminal. What do you see? 
+--
+
+3. Stage `my_file_<your-name>.txt` by executing: 
+```cli
+$ git add my_file_<your-name>.txt
+```
+--
+
+4. Write an informative comment about the changes you made.
+```cli
+$ git commit -m "create new script"
+```
+--
+
+5. Send it to the remote repository. (`main` is the name of the master branch.)
+```cli
+$ git push -u origin main
+```
+
+---
+class: inverse, middle, center
+
+#`r emo::ji("sparkles")`**Wow! It's on GitHub now.** `r emo::ji("sparkles")`
+
+---
+
+# Undoing 
+
+### Resetting 
+
+<img src = "https://res.cloudinary.com/practicaldev/image/fetch/s--vtdH0y_D--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://storage.kraken.io/kk8yWPxzXVfBD3654oMN/f0ae16e339631560090233b4c5850990/git-reset.png" />
+---
+
+# Undoing 
+
+### Reverting
+
+<img src = "https://res.cloudinary.com/practicaldev/image/fetch/s--jatxl5-W--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://storage.kraken.io/kk8yWPxzXVfBD3654oMN/782bf25d88e360df15ef96d84d872181/git-revert.png" />
+
+---
+
+### Lab
+
+1. Go back into your text file and replace the lines you've written previously with something else. E.g., `Hello World!` --> `something else` 
+What do you see when you...
+```cli 
+$ git diff
+```
+Commit these changes.
+
+--
+
+2. Uh-oh! Changed your mind. Let's go back. First check your old commits:
+```cli 
+$ git log
+```
+--
+(Alternatively, **`git reflog`**)
+--
+
+3. Select the version you want to go back to. (This is why commit messages are so important!)
+```cli 
+$ git reset --hard <commit ID>
+```
+
+---
+
+# Collaborating with others (Part A)
+
+.left-column[
+When your collaborators make changes to the remote repository, how do I update my local repository to sync these changes?
+
+The key command is **`git pull`**, which:
+
+1. fetches (**`git fetch`**) the new changes and 
+
+2. merges (**`git merge`**) them into your local branch
+
+**TIP**: You typically want to **`git pull`** before **`push`**-ing anything to the remote repo.
+]
+
+.right-column[
+
+<div style="width:500px; height:400px">
+.center[![basics](images/git_workflow_pull.png)]
+</div>
+]
+
+---
+
+### Lab
+
+Today, we will be working in pairs. (Me & Michael, Osama & Brian)
+--
+
+1. Pull all the changes from your collaborators to your local repository. 
+
+--
+
+2. Among the two of you, select one of your text files to work together on. 
+
+  * E.g., Michael and I will both open `my_file_mk.txt`.
+
+--
+
+3. Independently go into the chosen text file and make a change to the same line. Push your changes.
+
+--
+
+4. What happens when you both try pushing your changes to the remote repository?
+
+---
+class: inverse, middle, center
+
+#`r emo::ji("skull")`**You have a merge conflict.** `r emo::ji("skull")`
+
+---
+class: inverse, middle, center
+
+<img src = "https://imgs.xkcd.com/comics/git.png" />
+
+---
+
+# Collaborating with others (Part B)
+
+Branches, Pull Requests, and Code Reviews are at the heart of collaboration on GitHub.
+
+- branching
+- pull requests
+- code reviews
+- issues
+
+---
+
+# Branching
+
+...insert branching images from [here](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)...
+
+To create a new branch:
+```cli
+$ git checkout -b <my-new-branch>
+```
+
+To switch branches:
+```cli
+$ git checkout <branch-name>
+```
+
+Which branch am I working in?
+```cli
+$ git branch 
+```
+
+---
+
+### Lab
+
+1. Create a new branch. Name it anything you'd like. You will automatically switch from the main branch to your new one.
+
+--
+
+2. Make some changes to the text file.
+
+--
+
+3. Stage, commit, and push your changes to the remote repo.
+**Let's look at what happened on GitHub.**
+
+--
+
+4. Create a Pull Request (PR). GitHub should automatically detect the commit and prompt you to create a PR.
+
+--
+
+5. Assign the person to your right to be your Code Reviewer.
+
+--
+
+6. Review your collaborator's code and approve their changes.
+
+---
+class: inverse, middle, center
+
+#`r emo::ji("tada")`**Merge changes onto the main branch!** `r emo::ji("tada")`
+
+---
+
+# Other tidbits
+
+- .gitignore
+
+- [GitHub Desktop](https://desktop.github.com/)
+
+- creating issues
+
+- github-flavored Rmarkdown
+
+---
+
+# Useful commands for different scenarios
+
+"I accidentally staged that file..."
+```cli
+$ git add the_file.py
+$ git reset HEAD the_file.py
+```
+
+
+"All I want to do is rename the file..."
+```cli
+$ git mv old_filename.py new_filename.py
+```
+
+
+"Damn, I made a typo..."
+```cli
+$ git add the_file.py
+$ git commit --amend --no-edit
+```
+
+
+---
+
+# "Shoot, committed to the wrong branch..."
+
+Undo the last commit leaving workspace files changed (`--soft`)
+``` cli
+$ git reset HEAD~ --soft
+```
+
+**Stash** (unlocked new power!!) the changed files, then move to the right branch.  
+``` cli
+$ git stash
+$ git checkout correct_branch
+$ git stash pop
+```
+
+Commit the changes on the branch you wanted
+```cli
+$ git add .
+$ git commit -m "committing to the correct one!"
+```
+
+---
+
+# Additional resources
+
+- My preferred git [cheatsheet](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet) was created by Atlassian (owners of BitBucket), but there are many others. E.g., from [GitHub](https://training.github.com/downloads/github-git-cheat-sheet.pdf) or this [interactive]((https://ndpsoftware.com/git-cheatsheet.html#loc=index) one.
+
+- All git [commands](https://git-scm.com/docs/git#_git_commands).
+
+- Perhaps my favorite git reference of all is [ohshitgit](https://ohshitgit.com/) (or the child-friendly [dangitgit](https://dangitgit.com/en)). Some of this content is on slides 20 & 21!
+
